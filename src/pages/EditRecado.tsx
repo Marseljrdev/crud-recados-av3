@@ -3,9 +3,6 @@ import { Button, Divider, Grid, TextField } from '@mui/material';
 import ListRecados from '../components/ListRecados';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { selectAll, updateRecado } from '../store/modules/recadosSlice';
-import RecadosType from '../types/RecadosType';
-import generateId from '../utils/generateId';
-import { addRecado } from '../store/modules/recadosSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const EditRecado: React.FC = () => {
