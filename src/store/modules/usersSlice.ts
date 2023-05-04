@@ -1,8 +1,8 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { usersType } from '../../types/usersType';
+import UsersType from '../../types/UsersType';
 
-const adapter = createEntityAdapter<usersType>({
+const adapter = createEntityAdapter<UsersType>({
   selectId: item => item.email
 });
 
@@ -12,10 +12,12 @@ const usersSlice = createSlice({
   name: 'users',
   initialState: adapter.getInitialState(),
   reducers: {
-    addUser: adapter.addOne,
-    updateUser: adapter.updateOne
+    registerUser: (state, action) => {
+      console.log(action.payload);
+      adapter.addOne(state, action.payload);
+    }
   }
 });
 
-export const { addUser, updateUser } = usersSlice.actions;
+export const { registerUser } = usersSlice.actions;
 export default usersSlice.reducer;
