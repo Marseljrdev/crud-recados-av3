@@ -3,8 +3,8 @@ import RecadosType from '../types/RecadosType';
 import { Avatar, Divider, IconButton, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { removeRecado, selectAll } from '../store/modules/recadosSlice';
+import { useAppDispatch } from '../store/hooks';
+import { removeRecado } from '../store/modules/recadosSlice';
 import { useNavigate } from 'react-router-dom';
 
 interface ListRecadosProps {
@@ -32,7 +32,7 @@ const ListRecados: React.FC<ListRecadosProps> = ({ recados }) => {
             alignItems="flex-start"
             secondaryAction={
               <>
-                <IconButton onClick={() => handleEdit(item)} edge="end" aria-label="delete">
+                <IconButton onClick={() => handleEdit(item)} edge="end" aria-label="edit">
                   <EditIcon />
                 </IconButton>
 
