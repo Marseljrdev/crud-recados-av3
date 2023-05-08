@@ -14,7 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../store/hooks';
 import { registerUser } from '../store/modules/usersSlice';
 import { toast } from 'react-toastify';
-import UsersType from '../types/UsersType';
+import usersType from '../types/UsersType';
 
 const Register: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +36,7 @@ const Register: React.FC = () => {
 
   const handleRegister = (e: any) => {
     e.preventDefault();
-    const newRegisterUser: UsersType = { name: userName, email: userEmail, password: userPassword };
+    const newRegisterUser: usersType = { name: userName, email: userEmail, password: userPassword };
     if (userPassword !== confirmPassword) {
       toast.error('Senhas não conferem');
     } else if (userName === '' && userEmail === '' && userPassword === '') {
