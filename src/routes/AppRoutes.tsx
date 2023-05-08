@@ -10,7 +10,7 @@ const AppRoutes: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<DefaultLayout component={Home} />} />
         <Route path="/edit-recado/:id" element={<DefaultLayout component={EditRecado} />} />

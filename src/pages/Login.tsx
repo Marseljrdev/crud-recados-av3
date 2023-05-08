@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   FormControl,
@@ -11,12 +11,15 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { selectAll } from '../store/modules/usersSlice';
-import UsersType from '../types/UsersType';
+import { toast } from 'react-toastify';
+import { setToken } from '../store/modules/tokenSlice';
+import generateId from '../utils/generateId';
 
 const Login: React.FC = () => {
   const usersRedux = useAppSelector(selectAll);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState<string>('');
   const [loginPassword, setLoginPassword] = useState<string>('');
@@ -25,19 +28,23 @@ const Login: React.FC = () => {
 
   const handleClickShowPassword = () => setShowPassword(show => !show);
 
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  const handleToken = generateId();
 
   const handleLogin = () => {
     const findUser = usersRedux.find(item => item.email === loginEmail && item.password === loginPassword);
     if (findUser) {
+      dispatch(setToken(handleToken));
       navigate('/home');
+      toast.info(`Bem vindo ao sistema, ${findUser.name}`);
     } else {
       alert('E-mail ou senha incorretos!');
     }
   };
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
   return (
     <Grid container sx={{ height: '100vh' }}>
       <Grid

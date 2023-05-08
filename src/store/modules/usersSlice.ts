@@ -15,7 +15,7 @@ const usersSlice = createSlice({
     registerUser: (state, action) => {
       console.log(action.payload);
       adapter.addOne(state, action.payload);
-    }
+    },
   }
 });
 

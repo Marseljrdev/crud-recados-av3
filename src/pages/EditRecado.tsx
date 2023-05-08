@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Divider, Grid, TextField } from '@mui/material';
+import { Button, Divider, Grid, TextField, Typography } from '@mui/material';
 import ListRecados from '../components/ListRecados';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { selectAll, updateRecado } from '../store/modules/recadosSlice';
@@ -16,6 +16,10 @@ const EditRecado: React.FC = () => {
   console.log(recadosRedux);
   const dispatch = useAppDispatch();
 
+    if (!recadosRedux) {
+      return <Typography variant='body2' >Não há nenhum recados para editar</Typography>;
+    }
+
   useEffect(() => {
     if (recadosRedux) {
       setDescricao(recadosRedux[0].description);
@@ -25,7 +29,7 @@ const EditRecado: React.FC = () => {
 
   function handleEdit() {
     if (id) {
-      dispatch(updateRecado({id, changes: {description: descricao, details: detalhes}}));
+      dispatch(updateRecado({ id, changes: { description: descricao, details: detalhes } }));
     }
     navigate('/home');
   }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import {
   Button,
@@ -14,27 +15,38 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../store/hooks';
 import { registerUser } from '../store/modules/usersSlice';
 import UsersType from '../types/UsersType';
+import { toast } from 'react-toastify';
 
 const Register: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [userName, setUserName] = useState<string>('');
-  const [userEmail, setUserEmail] = useState<string>('');
-  const [userPassword, setUserPassword] = useState<string>('');
-  
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const handleClickShowPassword = () => setShowPassword(show => !show);
-
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 
+  const [userName, setUserName] = useState<string>('');
+
+  const [userEmail, setUserEmail] = useState<string>('');
+
+  const [userPassword, setUserPassword] = useState<string>('');
+
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleRegister = (e: any) => {
     e.preventDefault();
     const newRegisterUser: UsersType = { name: userName, email: userEmail, password: userPassword };
-    dispatch(registerUser(newRegisterUser));
-    navigate('/login');
+    if (userPassword !== confirmPassword) {
+      toast.error('Senhas não conferem');
+    } else if (userName === '' && userEmail === '' && userPassword === '') {
+      toast.error('Preencha todos os dados');
+    } else {
+      dispatch(registerUser(newRegisterUser));
+      navigate('/');
+      toast.success('Cadastrado com sucesso');
+    }
   };
 
   return (
@@ -57,6 +69,7 @@ const Register: React.FC = () => {
         <FormControl sx={{ m: 1, width: '45ch' }} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-name">Name</InputLabel>
           <OutlinedInput
+            required
             value={userName}
             onChange={e => setUserName(e.target.value)}
             id="outlined-adornment-name"
@@ -68,6 +81,7 @@ const Register: React.FC = () => {
           <InputLabel htmlFor="outlined-adornment-email">E-mail</InputLabel>
           <OutlinedInput
             value={userEmail}
+            required
             onChange={e => setUserEmail(e.target.value)}
             id="outlined-adornment-email"
             type="email"
@@ -78,6 +92,7 @@ const Register: React.FC = () => {
           <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
           <OutlinedInput
             id="outlined-adornment-password"
+            required
             value={userPassword}
             onChange={e => setUserPassword(e.target.value)}
             type={showPassword ? 'text' : 'password'}
@@ -94,6 +109,29 @@ const Register: React.FC = () => {
               </InputAdornment>
             }
             label="Password"
+          />
+        </FormControl>
+        <FormControl sx={{ m: 1, width: '45ch' }} variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">Confirm password</InputLabel>
+          <OutlinedInput
+            required
+            id="outlined-adornment-password"
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Confirm password"
           />
         </FormControl>
         <Button onClick={handleRegister}>Acessar</Button>

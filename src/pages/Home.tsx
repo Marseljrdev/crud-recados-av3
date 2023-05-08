@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sm>
+      <Grid item xs={12}>
         <TextField
           id="outlined-description-input"
           label="Descrição"
