@@ -1,7 +1,7 @@
-type UsersType = {
+interface usersType {
   name: string;
   email: string;
   password: string;
 }
 
-export default UsersType;
+export default usersType;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import {
   Button,
@@ -14,7 +15,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../store/hooks';
 import { registerUser } from '../store/modules/usersSlice';
 import { toast } from 'react-toastify';
-import usersType from '../types/UsersType';
+import usersType from '../types/usersType';
 
 const Register: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
