@@ -134,7 +134,7 @@ const Register: React.FC = () => {
             label="Confirm password"
           />
         </FormControl>
-        <Button onClick={handleRegister}>Acessar</Button>
+        <Button onClick={handleRegister}>Registrar</Button>
         <Typography>
           Ja tem um acesso? <Link to="/login">Login</Link>
         </Typography>
